@@ -27,16 +27,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var number1Field: UITextField!
+    @IBOutlet weak var number2Field: UITextField!
+    @IBOutlet weak var calcButton: UIButton!
+    @IBOutlet weak var answerLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
