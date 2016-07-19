@@ -24,6 +24,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
 
@@ -32,8 +34,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var calcButton: UIButton!
     @IBOutlet weak var answerLabel: UILabel!
     
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let numbers = Observable.combineLatest(number1Field.rx_text, number2Field.rx_text) { ($0, $1) }
+        
+        numbers
+            .map { (number1, number2) in
+                return !number1.isEmpty && !number2.isEmpty
+            }
+            .bindTo(calcButton.rx_enabled)
+            .addDisposableTo(disposeBag)
+        
+        calcButton.rx_tap
+            .withLatestFrom(numbers)
+            .map { (number1, number2) in
+                let n1 = Int(number1) ?? 0
+                let n2 = Int(number2) ?? 0
+                return String(n1 + n2)
+            }
+            .startWith("")
+            .bindTo(answerLabel.rx_text)
+            .addDisposableTo(disposeBag)
     }
 }
 
