@@ -24,6 +24,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
 
@@ -32,8 +34,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var calcButton: UIButton!
     @IBOutlet weak var answerLabel: UILabel!
     
+    var disposeBag = DisposeBag()
+    let viewModel = ViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        viewModel.number1Text
+            .bindTo(number1Field.rx_text)
+            .addDisposableTo(disposeBag)
+        viewModel.number2Text
+            .bindTo(number2Field.rx_text)
+            .addDisposableTo(disposeBag)
+        viewModel.calcEnabled
+            .bindTo(calcButton.rx_enabled)
+            .addDisposableTo(disposeBag)
+        viewModel.answerText
+            .bindTo(answerLabel.rx_text)
+            .addDisposableTo(disposeBag)
+        
+        number1Field.rx_text
+            .bindTo(viewModel.number1ChangedAction)
+            .addDisposableTo(disposeBag)
+        number2Field.rx_text
+            .bindTo(viewModel.number2ChangedAction)
+            .addDisposableTo(disposeBag)
+        calcButton.rx_tap
+            .bindTo(viewModel.calcAction)
+            .addDisposableTo(disposeBag)
     }
 }
 

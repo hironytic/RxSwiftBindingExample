@@ -15,6 +15,9 @@
 		504D70B51D3EE0E3004DC566 /* RxSwiftBindingExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D70B41D3EE0E3004DC566 /* RxSwiftBindingExampleTests.swift */; };
 		504D70C11D3EE4BF004DC566 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 504D70BF1D3EE4BF004DC566 /* RxCocoa.framework */; };
 		504D70C21D3EE4BF004DC566 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 504D70C01D3EE4BF004DC566 /* RxSwift.framework */; };
+		504D70C71D3EF01B004DC566 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D70C61D3EF01B004DC566 /* ViewModel.swift */; };
+		504D70C91D3EF16B004DC566 /* ActionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D70C81D3EF16B004DC566 /* ActionObserver.swift */; };
+		504D70CD1D3F8711004DC566 /* FulfillObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D70CC1D3F8711004DC566 /* FulfillObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		504D70B61D3EE0E3004DC566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		504D70BF1D3EE4BF004DC566 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		504D70C01D3EE4BF004DC566 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		504D70C61D3EF01B004DC566 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		504D70C81D3EF16B004DC566 /* ActionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionObserver.swift; sourceTree = "<group>"; };
+		504D70CC1D3F8711004DC566 /* FulfillObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FulfillObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,8 @@
 			children = (
 				504D709F1D3EE0E3004DC566 /* AppDelegate.swift */,
 				504D70A11D3EE0E3004DC566 /* ViewController.swift */,
+				504D70C61D3EF01B004DC566 /* ViewModel.swift */,
+				504D70C81D3EF16B004DC566 /* ActionObserver.swift */,
 				504D70A31D3EE0E3004DC566 /* Main.storyboard */,
 				504D70A61D3EE0E3004DC566 /* Assets.xcassets */,
 				504D70A81D3EE0E3004DC566 /* LaunchScreen.storyboard */,
@@ -99,6 +107,7 @@
 			children = (
 				504D70B41D3EE0E3004DC566 /* RxSwiftBindingExampleTests.swift */,
 				504D70B61D3EE0E3004DC566 /* Info.plist */,
+				504D70CC1D3F8711004DC566 /* FulfillObserver.swift */,
 			);
 			path = RxSwiftBindingExampleTests;
 			sourceTree = "<group>";
@@ -233,6 +242,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				504D70A21D3EE0E3004DC566 /* ViewController.swift in Sources */,
+				504D70C91D3EF16B004DC566 /* ActionObserver.swift in Sources */,
+				504D70C71D3EF01B004DC566 /* ViewModel.swift in Sources */,
 				504D70A01D3EE0E3004DC566 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				504D70B51D3EE0E3004DC566 /* RxSwiftBindingExampleTests.swift in Sources */,
+				504D70CD1D3F8711004DC566 /* FulfillObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +406,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = RxSwiftBindingExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hironytic.sample.RxSwiftBindingExampleTests;
@@ -406,6 +422,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = RxSwiftBindingExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hironytic.sample.RxSwiftBindingExampleTests;
@@ -433,6 +453,7 @@
 				504D70BB1D3EE0E3004DC566 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		504D70BC1D3EE0E3004DC566 /* Build configuration list for PBXNativeTarget "RxSwiftBindingExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -441,6 +462,7 @@
 				504D70BE1D3EE0E3004DC566 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
