@@ -26,6 +26,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="number1Changed:" destination="BYZ-38-t0r" eventType="editingChanged" id="Ieb-W9-yes"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G3w-dE-a1O">
                                 <rect key="frame" x="126" y="48" width="60" height="30"/>
@@ -43,6 +46,9 @@
                                         <exclude reference="yxi-84-YH9"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="number2Changed:" destination="BYZ-38-t0r" eventType="editingChanged" id="vJm-fV-bHc"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF1-W3-vzZ">
                                 <rect key="frame" x="88" y="52" width="30" height="21"/>
@@ -61,6 +67,9 @@
                                     <constraint firstAttribute="height" constant="30" id="jU2-Gg-NBV"/>
                                 </constraints>
                                 <state key="normal" title="="/>
+                                <connections>
+                                    <action selector="calc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H8n-fH-uOL"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3z-87-3Yc">
                                 <rect key="frame" x="248" y="52" width="60" height="21"/>
