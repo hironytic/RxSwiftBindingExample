@@ -35,45 +35,31 @@ class ViewModel {
     let number2ChangedAction: AnyObserver<String>
     let calcAction: AnyObserver<Void>
 
-    private let _number1Text = Variable<String>("")
-    private let _number2Text = Variable<String>("")
-    private let _calcEnabled = Variable<Bool>(false)
-    private let _answerText = Variable<String>("")
-    private let _calcAction = ActionObserver<Void>()
-    private let _number1ChangedAction = ActionObserver<String>()
-    private let _number2ChangedAction = ActionObserver<String>()
+    private let _number1Text = BehaviorSubject<String>(value: "")
+    private let _number2Text = BehaviorSubject<String>(value: "")
+    private let _calcAction = PublishSubject<Void>()
     
     init() {
         number1Text = _number1Text.asObservable()
         number2Text = _number2Text.asObservable()
-        answerText = _answerText.asObservable()
-        calcEnabled = _calcEnabled.asObservable()
-        number1ChangedAction = _number1ChangedAction.asObserver()
-        number2ChangedAction = _number2ChangedAction.asObserver()
+        number1ChangedAction = _number1Text.asObserver()
+        number2ChangedAction = _number2Text.asObserver()
         calcAction = _calcAction.asObserver()
         
-        _calcAction.handler = { [weak self] in self?.calc() }
-        _number1ChangedAction.handler = { [weak self] in self?.number1Changed($0) }
-        _number2ChangedAction.handler = { [weak self] in self?.number2Changed($0) }
-    }
-    
-    private func calc() {
-        let n1 = Int(_number1Text.value) ?? 0
-        let n2 = Int(_number2Text.value) ?? 0
-        _answerText.value = String(n1 + n2)
-    }
-    
-    private func number1Changed(value: String) {
-        _number1Text.value = value
-        updateCalcState()
-    }
-    
-    private func number2Changed(value: String) {
-        _number2Text.value = value
-        updateCalcState()
-    }
-    
-    private func updateCalcState() {
-        _calcEnabled.value = !_number1Text.value.isEmpty && !_number2Text.value.isEmpty
+        let numbers = Observable.combineLatest(number1Text, number2Text) { ($0, $1) }
+
+        calcEnabled = numbers
+            .map { (number1, number2) in
+                return !number1.isEmpty && !number2.isEmpty
+            }
+        
+        answerText = _calcAction
+            .withLatestFrom(numbers)
+            .map { (number1, number2) in
+                let n1 = Int(number1) ?? 0
+                let n2 = Int(number2) ?? 0
+                return String(n1 + n2)
+            }
+            .startWith("")
     }
 }
