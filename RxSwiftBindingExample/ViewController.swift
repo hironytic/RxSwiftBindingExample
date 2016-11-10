@@ -39,24 +39,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let numbers = Observable.combineLatest(number1Field.rx_text, number2Field.rx_text) { ($0, $1) }
+        let numbers = Observable.combineLatest(number1Field.rx.text, number2Field.rx.text) { ($0, $1) }
         
         numbers
             .map { (number1, number2) in
-                return !number1.isEmpty && !number2.isEmpty
+                return !(number1?.isEmpty ?? true) && !(number2?.isEmpty ?? true)
             }
-            .bindTo(calcButton.rx_enabled)
+            .bindTo(calcButton.rx.isEnabled)
             .addDisposableTo(disposeBag)
         
-        calcButton.rx_tap
+        calcButton.rx.tap
             .withLatestFrom(numbers)
             .map { (number1, number2) in
-                let n1 = Int(number1) ?? 0
-                let n2 = Int(number2) ?? 0
+                let n1 = number1.flatMap({ Int($0) }) ?? 0
+                let n2 = number2.flatMap({ Int($0) }) ?? 0
                 return String(n1 + n2)
             }
             .startWith("")
-            .bindTo(answerLabel.rx_text)
+            .bindTo(answerLabel.rx.text)
             .addDisposableTo(disposeBag)
     }
 }
