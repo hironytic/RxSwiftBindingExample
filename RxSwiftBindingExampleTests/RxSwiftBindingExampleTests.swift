@@ -34,34 +34,34 @@ class RxSwiftBindingExampleTests: XCTestCase {
         let disposeBag = DisposeBag()
         let viewModel = ViewModel()
         
-        let answerObserver = FulfillObserver(expectationWithDescription("empty before calculation")) { $0 == "" }
+        let answerObserver = FulfillObserver(expectation(description: "empty before calculation")) { $0 == "" }
         viewModel.answerText
             .bindTo(answerObserver)
             .addDisposableTo(disposeBag)
         
-        waitForExpectationsWithTimeout(1.0, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
 
-        answerObserver.reset(expectationWithDescription("30 after calculation")) { $0 == "30" }
+        answerObserver.reset(expectation(description: "30 after calculation")) { $0 == "30" }
         viewModel.number1ChangedAction.onNext("10")
         viewModel.number2ChangedAction.onNext("20")
         viewModel.calcAction.onNext()
-        waitForExpectationsWithTimeout(1.0, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
     
     func testCalcEnabled() {
         let disposeBag = DisposeBag()
         let viewModel = ViewModel()
         
-        let enabledObserver = FulfillObserver(expectationWithDescription("disabled")) { $0 == false }
+        let enabledObserver = FulfillObserver(expectation(description: "disabled")) { $0 == false }
         viewModel.calcEnabled
             .bindTo(enabledObserver)
             .addDisposableTo(disposeBag)
         
-        waitForExpectationsWithTimeout(1.0, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
         
-        enabledObserver.reset(expectationWithDescription("become enabled")) { $0 == true }
+        enabledObserver.reset(expectation(description: "become enabled")) { $0 == true }
         viewModel.number1ChangedAction.onNext("10")
         viewModel.number2ChangedAction.onNext("20")
-        waitForExpectationsWithTimeout(1.0, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 }

@@ -31,8 +31,8 @@ class ViewModel {
     let number2Text: Observable<String>
     let calcEnabled: Observable<Bool>
     let answerText: Observable<String>
-    let number1ChangedAction: AnyObserver<String>
-    let number2ChangedAction: AnyObserver<String>
+    let number1ChangedAction: AnyObserver<String?>
+    let number2ChangedAction: AnyObserver<String?>
     let calcAction: AnyObserver<Void>
 
     private let _number1Text = Variable<String>("")
@@ -40,8 +40,8 @@ class ViewModel {
     private let _calcEnabled = Variable<Bool>(false)
     private let _answerText = Variable<String>("")
     private let _calcAction = ActionObserver<Void>()
-    private let _number1ChangedAction = ActionObserver<String>()
-    private let _number2ChangedAction = ActionObserver<String>()
+    private let _number1ChangedAction = ActionObserver<String?>()
+    private let _number2ChangedAction = ActionObserver<String?>()
     
     init() {
         number1Text = _number1Text.asObservable()
@@ -63,12 +63,16 @@ class ViewModel {
         _answerText.value = String(n1 + n2)
     }
     
-    private func number1Changed(value: String) {
+    private func number1Changed(_ value: String?) {
+        guard let value = value else { return }
+        
         _number1Text.value = value
         updateCalcState()
     }
     
-    private func number2Changed(value: String) {
+    private func number2Changed(_ value: String?) {
+        guard let value = value else { return }
+        
         _number2Text.value = value
         updateCalcState()
     }
