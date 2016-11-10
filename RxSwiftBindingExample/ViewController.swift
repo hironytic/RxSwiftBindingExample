@@ -37,25 +37,25 @@ class ViewController: UIViewController {
         number1Field.text = ""
         number2Field.text = ""
         answerLabel.text = ""
-        calcButton.enabled = false
+        calcButton.isEnabled = false
     }
     
-    @IBAction private func calc(sender: AnyObject) {
+    @IBAction private func calc(_ sender: AnyObject) {
         let n1 = Int(number1Field.text ?? "") ?? 0
         let n2 = Int(number2Field.text ?? "") ?? 0
         answerLabel.text = String(n1 + n2)
     }
 
-    @IBAction func number1Changed(sender: AnyObject) {
+    @IBAction func number1Changed(_ sender: AnyObject) {
         updateCalcState()
     }
     
-    @IBAction func number2Changed(sender: AnyObject) {
+    @IBAction func number2Changed(_ sender: AnyObject) {
         updateCalcState()
     }
     
     private func updateCalcState() {
-        calcButton.enabled = !(number1Field.text?.isEmpty ?? true)
+        calcButton.isEnabled = !(number1Field.text?.isEmpty ?? true)
                           && !(number2Field.text?.isEmpty ?? true)
     }
 }
