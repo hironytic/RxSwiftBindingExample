@@ -41,25 +41,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         viewModel.number1Text
-            .bindTo(number1Field.rx_text)
+            .bindTo(number1Field.rx.text)
             .addDisposableTo(disposeBag)
         viewModel.number2Text
-            .bindTo(number2Field.rx_text)
+            .bindTo(number2Field.rx.text)
             .addDisposableTo(disposeBag)
         viewModel.calcEnabled
-            .bindTo(calcButton.rx_enabled)
+            .bindTo(calcButton.rx.isEnabled)
             .addDisposableTo(disposeBag)
         viewModel.answerText
-            .bindTo(answerLabel.rx_text)
+            .bindTo(answerLabel.rx.text)
             .addDisposableTo(disposeBag)
         
-        number1Field.rx_text
+        number1Field.rx.text
             .bindTo(viewModel.number1ChangedAction)
             .addDisposableTo(disposeBag)
-        number2Field.rx_text
+        number2Field.rx.text
             .bindTo(viewModel.number2ChangedAction)
             .addDisposableTo(disposeBag)
-        calcButton.rx_tap
+        calcButton.rx.tap
             .bindTo(viewModel.calcAction)
             .addDisposableTo(disposeBag)
     }

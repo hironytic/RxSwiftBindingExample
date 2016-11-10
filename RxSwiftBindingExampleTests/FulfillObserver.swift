@@ -29,56 +29,56 @@ import RxSwift
 public class FulfillObserver<Element>: ObserverType {
     public typealias E = Element
     private var expectation: XCTestExpectation
-    private var nextChecker: Element -> Bool
-    private var errorChecker: ErrorType -> Bool
+    private var nextChecker: (Element) -> Bool
+    private var errorChecker: (Error) -> Bool
     
-    public init(_ expectation: XCTestExpectation, nextChecker: Element -> Bool) {
+    public init(_ expectation: XCTestExpectation, nextChecker: @escaping (Element) -> Bool) {
         self.expectation = expectation
         self.nextChecker = nextChecker
         self.errorChecker = { _ in false }
     }
     
-    public init(_ expectation: XCTestExpectation, errorChecker: ErrorType -> Bool) {
+    public init(_ expectation: XCTestExpectation, errorChecker: @escaping (Error) -> Bool) {
         self.expectation = expectation
         self.nextChecker = { _ in false }
         self.errorChecker = errorChecker
     }
     
-    public init(_ expectation: XCTestExpectation, nextChecker: Element -> Bool, errorChecker: ErrorType -> Bool) {
+    public init(_ expectation: XCTestExpectation, nextChecker: @escaping (Element) -> Bool, errorChecker: @escaping (Error) -> Bool) {
         self.expectation = expectation
         self.nextChecker = nextChecker
         self.errorChecker = errorChecker
     }
     
-    public func reset(expectation: XCTestExpectation, nextChecker: Element -> Bool) {
+    public func reset(_ expectation: XCTestExpectation, nextChecker: @escaping (Element) -> Bool) {
         self.expectation = expectation
         self.nextChecker = nextChecker
         self.errorChecker = { _ in false }
     }
     
-    public func reset(expectation: XCTestExpectation, errorChecker: ErrorType -> Bool) {
+    public func reset(_ expectation: XCTestExpectation, errorChecker: @escaping (Error) -> Bool) {
         self.expectation = expectation
         self.nextChecker = { _ in false }
         self.errorChecker = errorChecker
     }
     
-    public func reset(expectation: XCTestExpectation, nextChecker: Element -> Bool, errorChecker: ErrorType -> Bool) {
+    public func reset(_ expectation: XCTestExpectation, nextChecker: @escaping (Element) -> Bool, errorChecker: @escaping (Error) -> Bool) {
         self.expectation = expectation
         self.nextChecker = nextChecker
         self.errorChecker = errorChecker
     }
     
-    public func on(event: Event<Element>) {
+    public func on(_ event: Event<Element>) {
         switch event {
-        case .Next(let element):
+        case .next(let element):
             if nextChecker(element) {
                 expectation.fulfill()
             }
-        case .Error(let error):
+        case .error(let error):
             if errorChecker(error) {
                 expectation.fulfill()
             }
-        case .Completed:
+        case .completed:
             break
         }
     }

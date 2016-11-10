@@ -31,17 +31,17 @@ class ViewModel {
     let number2Text: Observable<String>
     let calcEnabled: Observable<Bool>
     let answerText: Observable<String>
-    let number1ChangedAction: AnyObserver<String>
-    let number2ChangedAction: AnyObserver<String>
+    let number1ChangedAction: AnyObserver<String?>
+    let number2ChangedAction: AnyObserver<String?>
     let calcAction: AnyObserver<Void>
 
-    private let _number1Text = BehaviorSubject<String>(value: "")
-    private let _number2Text = BehaviorSubject<String>(value: "")
+    private let _number1Text = BehaviorSubject<String?>(value: "")
+    private let _number2Text = BehaviorSubject<String?>(value: "")
     private let _calcAction = PublishSubject<Void>()
     
     init() {
-        number1Text = _number1Text.asObservable()
-        number2Text = _number2Text.asObservable()
+        number1Text = _number1Text.map({ $0 ?? "" }).asObservable()
+        number2Text = _number2Text.map({ $0 ?? "" }).asObservable()
         number1ChangedAction = _number1Text.asObserver()
         number2ChangedAction = _number2Text.asObserver()
         calcAction = _calcAction.asObserver()

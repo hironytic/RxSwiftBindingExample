@@ -36,17 +36,17 @@ public class ActionObserver<Element>: ObserverType {
         self.init { _ in }
     }
     
-    public init(handler: Handler) {
+    public init(handler: @escaping Handler) {
         self.handler = handler
     }
 
-    public func on(event: Event<Element>) {
+    public func on(_ event: Event<Element>) {
         switch event {
-        case .Next(let element):
+        case .next(let element):
             handler(element)
-        case .Error(_):
+        case .error(_):
             break
-        case .Completed:
+        case .completed:
             break
         }
     }
