@@ -64,16 +64,12 @@ class ViewModel {
     }
     
     private func number1Changed(_ value: String?) {
-        guard let value = value else { return }
-        
-        _number1Text.value = value
+        _number1Text.value = value ?? ""
         updateCalcState()
     }
     
     private func number2Changed(_ value: String?) {
-        guard let value = value else { return }
-        
-        _number2Text.value = value
+        _number2Text.value = value ?? ""
         updateCalcState()
     }
     
